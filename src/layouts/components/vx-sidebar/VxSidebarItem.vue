@@ -1,12 +1,19 @@
+<!-- =========================================================================================
+    File Name: VxSidebarItem.vue
+    Description: Sidebar item component. Extends vuesax framework's 'vs-sidebar-item' component
+    Component Name: VxSidebarItem
+    ----------------------------------------------------------------------------------------
+    Item Name: Vuesax Admin - VueJS Dashboard Admin Template
+      Author: Pixinvent
+    Author URL: http://www.themeforest.net/user/pixinvent
+========================================================================================== -->
+
 <template>
-    <div :class="[{'vs-sidebar-item-active':activeLink}, {'disabled-item pointer-events-none': isDisabled}]" class="vs-sidebar--item">
+    <div :class="[{'vs-sidebar-item-active':activeLink}, {'disabled-item pointer-events-none': isDisabled}]" class="vs-sidebar--item" v-if="canSee">
         <router-link v-if="to" :to="to" :class="[{'router-link-active': activeLink}]" :target="target" exact>
             <vs-icon v-if="!featherIcon" :icon-pack="iconPack" :icon="icon">
             </vs-icon>
             <feather-icon :icon="icon" :class="{'w-3 h-3': iconSmall}" v-else></feather-icon>
-            <span v-if="iconAwesome" class="feather-icon select-none relative awesome-sidebar">
-              <font-awesome-icon :icon="iconAwesome"/>
-            </span>
             <slot></slot>
         </router-link>
         <a v-else :target="target" :href="href">
@@ -20,77 +27,76 @@
 
 <script>
 export default {
-  name: 'VxSidebarItem',
-  props: {
-    iconAwesome: {
-      default: "",
-      type: String
+    name: 'VxSidebarItem',
+    props: {
+        icon: {
+            default: "",
+            type: String
+        },
+        iconSmall: {
+            default: false,
+            type: Boolean,
+        },
+        iconPack: {
+            default: 'material-icons',
+            type: String
+        },
+        href: {
+            default: '#',
+            type: String
+        },
+        to: {
+            default: null,
+            type: String
+        },
+        index: {
+            default: null,
+            type: [String, Number]
+        },
+        featherIcon: {
+            default: true,
+            type: Boolean,
+        },
+        target: {
+            default: '_self',
+            type: String,
+        },
+        isDisabled: {
+            default: false,
+            type: Boolean
+        }
     },
-    icon: {
-      default: "",
-      type: String
+    data() {
+        return {
+            activeLink: false,
+        }
     },
-    iconSmall: {
-      default: false,
-      type: Boolean,
+    watch: {
+        '$route'() {
+            this.CheckIsActive()
+        }
     },
-    iconPack: {
-      default: 'material-icons',
-      type: String
+    methods: {
+        CheckIsActive() {
+            if (this.to) {
+                if(this.to == this.$router.path && this.to) this.activeLink = true
+                else this.activeLink = false
+                // if (this.$route.path.slice(1).includes(this.to.slice(1)) && this.to.slice(1)) this.activeLink = true
+                // else this.activeLink = false
+            }
+        }
     },
-    href: {
-      default: '#',
-      type: String
+    computed: {
+        canSee() {
+            this.$acl.check(this.$store.state.userRole);
+            if(this.to) {
+                return this.$acl.check(this.$router.match(this.to).meta.rule)
+            }
+            return true
+        }
     },
-    to: {
-      default: null,
-      type: String
-    },
-    index: {
-      default: null,
-      type: [String, Number]
-    },
-    featherIcon: {
-      default: true,
-      type: Boolean,
-    },
-    target: {
-      default: '_self',
-      type: String,
-    },
-    isDisabled: {
-      default: false,
-      type: Boolean
+    updated() {
+        this.CheckIsActive();
     }
-  },
-  data() {
-    return {
-      activeLink: false,
-    };
-  },
-  watch: {
-    '$route'() {
-      this.CheckIsActive();
-    }
-  },
-  methods: {
-    CheckIsActive() {
-      if (this.to) {
-        if(this.to == this.$router.path && this.to) this.activeLink = true;
-        else this.activeLink = false;
-        // if (this.$route.path.slice(1).includes(this.to.slice(1)) && this.to.slice(1)) this.activeLink = true
-        // else this.activeLink = false
-      }
-    }
-  },
-  updated() {
-    this.CheckIsActive();
-  }
-};
+}
 </script>
-<style lang="scss" scoped>
-  .main-menu-sidebar .vs-sidebar--item a span.awesome-sidebar {
-    margin-left: -18px;
-    font-size: 18px;
-  }
-</style>

@@ -19,18 +19,18 @@
 
 <script>
 export default {
-  name: "vx-list",
-  props: {
-    list: {
-      type: Array,
-      required: true,
+    name: "vx-list",
+    props: {
+        list: {
+            type: Array,
+            required: true,
+        },
+        icon: {
+            type: String,
+            default: "ChevronsRightIcon",
+        },
     },
-    icon: {
-      type: String,
-      default: "ChevronsRightIcon",
-    },
-  },
-};
+}
 </script>
 
 <style lang="scss">

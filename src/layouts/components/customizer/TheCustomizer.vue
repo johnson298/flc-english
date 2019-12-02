@@ -112,100 +112,100 @@
 </template>
 
 <script>
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 export default {
-  props: {
-    navbarType: {
-      type: String,
-      required: true,
+    props: {
+        navbarType: {
+            type: String,
+            required: true,
+        },
+        navbarColor: {
+            type: String,
+            required: true,
+            default: "#fff",
+        },
+        footerType: {
+            type: String,
+            required: true,
+        },
+        routerTransition: {
+            type: String,
+            required: true,
+        },
+        hideScrollToTop: {
+            type: Boolean,
+            required: true
+        }
     },
-    navbarColor: {
-      type: String,
-      required: true,
-      default: "#fff",
+    data() {
+        return {
+            active: false,
+            themeColors: ['#7367F0', '#28C76F', '#EA5455', '#FF9F43', '#1E1E1E'],
+            customPrimaryColor: '#3DC9B3',
+            customNavbarColor: '#3DC9B3',
+            routerTransitionsList: [
+                { text: 'Zoom Fade', value: 'zoom-fade' },
+                { text: 'Slide Fade', value: 'slide-fade' },
+                { text: 'Fade Bottom', value: 'fade-bottom' },
+                { text: 'Fade', value: 'fade' },
+                { text: 'Zoom Out', value: 'zoom-out' },
+                { text: 'None', value: 'none' },
+            ],
+            settings: { // perfectscrollbar settings
+                maxScrollbarLength: 60,
+                wheelSpeed: .60,
+            },
+        }
     },
-    footerType: {
-      type: String,
-      required: true,
+    computed: {
+        theme: {
+            get() {
+                return this.$store.state.theme;
+            },
+            set(val) {
+                this.$store.dispatch('updateTheme', val);
+            }
+        },
+        reduced_sidebar: {
+            get() { return this.$store.state.reduceButton },
+            set(val) { this.$store.commit('TOGGLE_REDUCE_BUTTON', val) }
+        },
+        navbarTypeLocal: {
+            get() { return this.navbarType; },
+            set(val) { this.$emit('updateNavbar', val) }
+        },
+        navbarColorLocal: {
+            get() { return this.navbarColor; },
+            set(val) { this.$emit('updateNavbarColor', val) }
+        },
+        footerTypeLocal: {
+            get() { return this.footerType; },
+            set(val) { this.$emit('updateFooter', val) }
+        },
+        routerTransitionLocal: {
+            get() { return this.routerTransition; },
+            set(val) { this.$emit('updateRouterTransition', val) }
+        },
+        primaryColor: {
+            get() { return this.$store.state.themePrimaryColor },
+            set(val) { this.$store.commit('UPDATE_PRIMARY_COLOR', val) }
+        },
+        hideScrollToTopLocal: {
+            get() { return this.hideScrollToTop },
+            set(val) { this.$emit('toggleHideScrollToTop', val) }
+        },
     },
-    routerTransition: {
-      type: String,
-      required: true,
+    methods: {
+        updatePrimaryColor(color) {
+            this.primaryColor = color;
+            this.$vs.theme({ primary: color });
+        }
     },
-    hideScrollToTop: {
-      type: Boolean,
-      required: true
+    components: {
+        VuePerfectScrollbar,
     }
-  },
-  data() {
-    return {
-      active: false,
-      themeColors: ['#7367F0', '#28C76F', '#EA5455', '#FF9F43', '#1E1E1E'],
-      customPrimaryColor: '#3DC9B3',
-      customNavbarColor: '#3DC9B3',
-      routerTransitionsList: [
-        { text: 'Zoom Fade', value: 'zoom-fade' },
-        { text: 'Slide Fade', value: 'slide-fade' },
-        { text: 'Fade Bottom', value: 'fade-bottom' },
-        { text: 'Fade', value: 'fade' },
-        { text: 'Zoom Out', value: 'zoom-out' },
-        { text: 'None', value: 'none' },
-      ],
-      settings: { // perfectscrollbar settings
-        maxScrollbarLength: 60,
-        wheelSpeed: .60,
-      },
-    };
-  },
-  computed: {
-    theme: {
-      get() {
-        return this.$store.state.theme;
-      },
-      set(val) {
-        this.$store.dispatch('updateTheme', val);
-      }
-    },
-    reduced_sidebar: {
-      get() { return this.$store.state.reduceButton; },
-      set(val) { this.$store.commit('TOGGLE_REDUCE_BUTTON', val); }
-    },
-    navbarTypeLocal: {
-      get() { return this.navbarType; },
-      set(val) { this.$emit('updateNavbar', val); }
-    },
-    navbarColorLocal: {
-      get() { return this.navbarColor; },
-      set(val) { this.$emit('updateNavbarColor', val); }
-    },
-    footerTypeLocal: {
-      get() { return this.footerType; },
-      set(val) { this.$emit('updateFooter', val); }
-    },
-    routerTransitionLocal: {
-      get() { return this.routerTransition; },
-      set(val) { this.$emit('updateRouterTransition', val); }
-    },
-    primaryColor: {
-      get() { return this.$store.state.themePrimaryColor; },
-      set(val) { this.$store.commit('UPDATE_PRIMARY_COLOR', val); }
-    },
-    hideScrollToTopLocal: {
-      get() { return this.hideScrollToTop; },
-      set(val) { this.$emit('toggleHideScrollToTop', val); }
-    },
-  },
-  methods: {
-    updatePrimaryColor(color) {
-      this.primaryColor = color;
-      this.$vs.theme({ primary: color });
-    }
-  },
-  components: {
-    VuePerfectScrollbar,
-  }
-};
+}
 </script>
 
 <style lang="scss">

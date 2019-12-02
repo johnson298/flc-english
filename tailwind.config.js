@@ -711,7 +711,7 @@ module.exports = {
     */
 
     // NOTE: IF YOU WANT TO CUSTOMIZE OPACITY THAN UNCOMMENT BELOW OBJECT AND EDIT
-    // ELSE JUST REMOVE IT OR COMMENT IT FOR LATER CUSTOMIZATION
+             // ELSE JUST REMOVE IT OR COMMENT IT FOR LATER CUSTOMIZATION
     // opacity: {
     //   '0': '0',
     //   '25': '.25',
@@ -865,4 +865,4 @@ module.exports = {
     letterSpacing: false,
   }
 
-};
+}

@@ -19,8 +19,8 @@
   </div>
 </template>
 <script>
-import utils from '@/assets/utils';
-import _color from '@/assets/utils/color.js';
+import utils from '@/assets/utils'
+import _color from '@/assets/utils/color.js'
 export default {
   name:'vx-tooltip',
   props:{
@@ -60,57 +60,57 @@ export default {
         transitionDelay: this.active?this.delay:'0s',
         background:_color.getColor(this.color,1),
         width: this.widthx
-      };
+      }
     }
   },
   methods:{
     mouseoverx(){
-      this.active = true;
+      this.active = true
       this.$nextTick(()=>{
-        utils.insertBody(this.$refs.vstooltip);
-        this.changePosition(this.$refs.convstooltip,this.$refs.vstooltip);
-      });
+        utils.insertBody(this.$refs.vstooltip)
+        this.changePosition(this.$refs.convstooltip,this.$refs.vstooltip)
+      })
     },
     mouseoutx(){
-      this.active = false;
+      this.active = false
     },
     changePosition(elxEvent, tooltip){
-      this.noneAfter = false;
-      this.positionx = null;
-      let elx = elxEvent.closest('.con-vs-tooltip');
+      this.noneAfter = false
+      this.positionx = null
+      let elx = elxEvent.closest('.con-vs-tooltip')
       let scrollTopx = window.pageYOffset || document.documentElement.scrollTop;
-      let topx = elx.getBoundingClientRect().top + scrollTopx - tooltip.clientHeight - 4;
-      let leftx = elx.getBoundingClientRect().left - tooltip.clientWidth / 2 + elx.clientWidth / 2;
-      let widthx = elx.clientWidth;
+      let topx = elx.getBoundingClientRect().top + scrollTopx - tooltip.clientHeight - 4
+      let leftx = elx.getBoundingClientRect().left - tooltip.clientWidth / 2 + elx.clientWidth / 2
+      let widthx = elx.clientWidth
 
       if(this.position == 'bottom'){
-        topx = elx.getBoundingClientRect().top + scrollTopx + elx.clientHeight + 4;
+        topx = elx.getBoundingClientRect().top + scrollTopx + elx.clientHeight + 4
       } else if (this.position == 'left') {
-        leftx = elx.getBoundingClientRect().left - tooltip.clientWidth - 4;
-        topx = elx.getBoundingClientRect().top + scrollTopx + (elx.clientHeight / 2) - (tooltip.clientHeight / 2);
+        leftx = elx.getBoundingClientRect().left - tooltip.clientWidth - 4
+        topx = elx.getBoundingClientRect().top + scrollTopx + (elx.clientHeight / 2) - (tooltip.clientHeight / 2)
         if (Math.sign(leftx)==-1) {
-          leftx = elx.getBoundingClientRect().left;
-          topx = elx.getBoundingClientRect().top + scrollTopx + elx.clientHeight + 4;
-          this.positionx = 'bottom';
-          this.noneAfter = true;
+          leftx = elx.getBoundingClientRect().left
+          topx = elx.getBoundingClientRect().top + scrollTopx + elx.clientHeight + 4
+          this.positionx = 'bottom'
+          this.noneAfter = true
         }
       } else if (this.position == 'right') {
-        leftx = elx.getBoundingClientRect().left + elx.clientWidth + 4;
-        topx = elx.getBoundingClientRect().top + scrollTopx + (elx.clientHeight / 2) - (tooltip.clientHeight / 2);
+        leftx = elx.getBoundingClientRect().left + elx.clientWidth + 4
+        topx = elx.getBoundingClientRect().top + scrollTopx + (elx.clientHeight / 2) - (tooltip.clientHeight / 2)
         if( window.innerWidth - (leftx + tooltip.clientWidth) <= 20) {
-          leftx = elx.getBoundingClientRect().left - tooltip.clientWidth / 2 - 10;
-          topx = elx.getBoundingClientRect().top + scrollTopx + elx.clientHeight + 4;
-          this.positionx = 'bottom';
-          this.noneAfter = true;
+          leftx = elx.getBoundingClientRect().left - tooltip.clientWidth / 2 - 10
+          topx = elx.getBoundingClientRect().top + scrollTopx + elx.clientHeight + 4
+          this.positionx = 'bottom'
+          this.noneAfter = true
         }
       }
       this.cords = {
         left: `${leftx}px`,
         top: `${topx}px`,
         width: `${widthx}px`
-      };
+      }
 
     },
   }
-};
+}
 </script>

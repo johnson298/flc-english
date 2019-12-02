@@ -6,85 +6,85 @@ export default {
   getColor(colorx, alphax = 1, defaultx = true){
     // change color hex to RGB
     if(/^[#]/.test(colorx)){
-      let c = this.hexToRgb(colorx);
+      let c = this.hexToRgb(colorx)
 
       if(alphax == 1){
-        colorx = `rgb(${c.r},${c.g},${c.b})`;
+        colorx = `rgb(${c.r},${c.g},${c.b})`
 
       } else {
-        colorx = `rgba(${c.r},${c.g},${c.b},${alphax})`;
+        colorx = `rgba(${c.r},${c.g},${c.b},${alphax})`
 
       }
     } else if (/^rgba/.test(colorx)) {
 
       if(colorx.search(/.([0-9]\))$/)==-1 && !defaultx){
-        colorx = colorx.replace(/.?([0-9]\))$/,`${alphax})`);
+        colorx = colorx.replace(/.?([0-9]\))$/,`${alphax})`)
       }
 
 
     } else if (/^(rgb)/.test(colorx)) {
     // change rgb and rgba
       if(alphax != 1){
-        colorx = colorx.replace(/^(rgb)/,`rgba`);
-        colorx = colorx.replace(/\)$/,`,${alphax})`);
+        colorx = colorx.replace(/^(rgb)/,`rgba`)
+        colorx = colorx.replace(/\)$/,`,${alphax})`)
       }
 
     }
-    return colorx;
+    return colorx
   },
   isColor(colorx){
-    let vscolors = ['primary','secondary','success','danger','warning','dark', 'light'];
-    return vscolors.includes(colorx);
+    let vscolors = ['primary','secondary','success','danger','warning','dark', 'light']
+    return vscolors.includes(colorx)
   },
   RandomColor(){
     function getRandomInt(min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
     }
-    return `rgb(${getRandomInt(0,255)},${getRandomInt(0,255)},${getRandomInt(0,255)})`;
+    return `rgb(${getRandomInt(0,255)},${getRandomInt(0,255)},${getRandomInt(0,255)})`
   },
   rColor(colorx,opacity=1){
     if(/^[#]/.test(colorx)){
-      let c = this.hexToRgb(colorx);
-      colorx = `rgba(${c.r},${c.g},${c.b},${opacity})`;
+      let c = this.hexToRgb(colorx)
+      colorx = `rgba(${c.r},${c.g},${c.b},${opacity})`
     } else if (/^[rgb]/.test(colorx)){
-      let colorSplit = colorx.split(')')[0];
+      let colorSplit = colorx.split(')')[0]
       if(!/^[rgba]/.test(colorx)){
-        colorSplit.replace('rgb','rgba');
-        colorSplit += `,${opacity})`;
+        colorSplit.replace('rgb','rgba')
+        colorSplit += `,${opacity})`
       } else {
         // colorSplit.replace('rgb','rgba')
-        colorSplit += `)`;
+        colorSplit += `)`
       }
-      colorx = colorSplit;
+      colorx = colorSplit
     }
 
-    let vscolors = ['primary','success','danger','warning','dark'];
+    let vscolors = ['primary','success','danger','warning','dark']
     if(colorx){
       if(/[#()]/.test(colorx)){
-        return colorx;
+        return colorx
       } else {
         if(vscolors.includes(colorx)){
-          return `rgba(var(--${colorx}),${opacity})`;
+          return `rgba(var(--${colorx}),${opacity})`
         } else {
-          return `rgba(var(--primary),${opacity})`;
+          return `rgba(var(--primary),${opacity})`
         }
       }
     } else {
-      return `rgba(var(--primary),${opacity})`;
+      return `rgba(var(--primary),${opacity})`
     }
   },
   contrastColor(elementx) {
-    let c = elementx;
+    let c = elementx
     if(/[#]/g.test(elementx)){
-      let rgbx = this.hexToRgb(elementx);
-      c = `rgb(${rgbx.r},${rgbx.g},${rgbx.b})`;
+      let rgbx = this.hexToRgb(elementx)
+      c = `rgb(${rgbx.r},${rgbx.g},${rgbx.b})`
     }
     var rgb = c.replace(/^(rgb|rgba)\(/,'').replace(/\)$/,'').replace(/\s/g,'').split(',');
     var yiq = ((rgb[0]*299)+(rgb[1]*587)+(rgb[2]*114))/1000;
     if(yiq >= 128){
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
   },
   setCssVariable(propertyName, value) {
@@ -110,23 +110,23 @@ export default {
     return String(styles.getPropertyValue(propertyName)).trim();
   },
   changeColor(colorInicial){
-    let colores = ['primary','success','danger','warning','dark'];
-    let colorx;
+    let colores = ['primary','success','danger','warning','dark']
+    let colorx
 
     if(colores.includes(colorInicial)){
-      let style = getComputedStyle(document.documentElement);
-      colorx = this.getVariable(style,'--'+colorInicial);
+      let style = getComputedStyle(document.documentElement)
+      colorx = this.getVariable(style,'--'+colorInicial)
     } else {
       if(/[rgb()]/g.test(colorInicial)){
-        colorx = colorInicial.replace(/[rgb()]/g,'');
+        colorx = colorInicial.replace(/[rgb()]/g,'')
       } else if(/[#]/g.test(colorInicial)){
-        let rgbx = this.hexToRgb(colorInicial);
-        colorx = `${rgbx.r},${rgbx.g},${rgbx.b}`;
+        let rgbx = this.hexToRgb(colorInicial)
+        colorx = `${rgbx.r},${rgbx.g},${rgbx.b}`
       } else {
-        colorx = '--'+colorInicial;
+        colorx = '--'+colorInicial
       }
     }
-    return colorx;
+    return colorx
     // this.setCssVariable('--'+clave,colorx)
   }
-};
+}

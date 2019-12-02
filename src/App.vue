@@ -1,3 +1,13 @@
+<!-- =========================================================================================
+	File Name: App.vue
+	Description: Main vue file - APP
+	----------------------------------------------------------------------------------------
+	Item Name: Vuesax Admin - VueJS Dashboard Admin Template
+	Author: Pixinvent
+	Author URL: http://www.themeforest.net/user/pixinvent
+========================================================================================== -->
+
+
 <template>
 	<div id="app">
 		<router-view></router-view>
@@ -5,7 +15,7 @@
 </template>
 
 <script>
-import themeConfig from '@/../themeConfig.js';
+import themeConfig from '@/../themeConfig.js'
 
 export default {
   watch: {
@@ -14,11 +24,11 @@ export default {
     }
   },
   async created() {
-    // try {
-    //   await this.$auth.renewTokens();
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    try {
+      await this.$auth.renewTokens();
+    } catch (e) {
+      console.log(e);
+    }
   },
   methods: {
     toggleClassInBody(className) {
@@ -38,7 +48,7 @@ export default {
     },
   },
   mounted() {
-    this.toggleClassInBody(themeConfig.theme);
+    this.toggleClassInBody(themeConfig.theme)
     this.$nextTick(() => {
       window.addEventListener('resize', this.handleWindowResize);
     });
@@ -47,6 +57,6 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.handleWindowResize);
   },
-};
+}
 
 </script>

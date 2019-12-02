@@ -1,11 +1,11 @@
-import Vue from 'vue';
-import { AclInstaller, AclCreate, AclRule } from 'vue-acl';
-import router from '@/router';
+import Vue from 'vue'
+import { AclInstaller, AclCreate, AclRule } from 'vue-acl'
+import router from '@/router'
 
-Vue.use(AclInstaller);
+Vue.use(AclInstaller)
 
-let initialRole = 'admin';
-if(localStorage.getItem('userRole')) initialRole = localStorage.getItem('userRole');
+let initialRole = 'admin'
+if(localStorage.getItem('userRole')) initialRole = localStorage.getItem('userRole')
 
 export default new AclCreate({
   initial: initialRole,
@@ -17,4 +17,4 @@ export default new AclCreate({
     editor: new AclRule('editor').or('admin').generate(),
     // public: new AclRule('public').or('admin').or('editor').generate(),
   }
-});
+})

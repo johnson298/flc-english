@@ -1,12 +1,13 @@
+/*=========================================================================================
+  File Name: vue.config.js
+  Description: configuration file of vue
+  ----------------------------------------------------------------------------------------
+  Item Name: Vuesax Admin - Clean Vue.js Dashboard Admin Template
+  Author: Pixinvent
+  Author URL: http://www.themeforest.net/user/pixinvent
+==========================================================================================*/
+
+
 module.exports = {
-  publicPath: "/",
-  css: {
-    sourceMap: process.env.NODE_ENV !== "production"
-  }
-  // chainWebpack: config => {
-  //   config.plugin("optimize-css").tap(([options]) => {
-  //     options.cssnanoOptions.preset[1].svgo = false;
-  //     return [options];
-  //   });
-  // }
-};
+  publicPath: '/'
+}
