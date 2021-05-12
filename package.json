@@ -15,7 +15,7 @@
     "apexcharts": "^3.6.12",
     "auth0-js": "^9.10.4",
     "axios": "^0.18.0",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "core-js": "2.6.5",
     "firebase": "^6.0.4",
     "instantsearch.css": "^7.3.1",
